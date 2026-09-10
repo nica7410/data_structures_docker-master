@@ -91,6 +91,81 @@ int main()
 int insertSortedLL(LinkedList *ll, int item)
 {
 	/* add your code here */
+	ListNode *temp;
+	temp = ll->head;
+	
+	// 헤더 처리
+	if (ll->head == NULL ||   ll->head->item > item)
+	{	
+		ll->head = malloc(sizeof(ListNode));
+		ll->head->item = item;
+		ll->head->next = NULL;
+		ll->size++;
+		return 0;
+	}
+
+	//
+	ListNode *next;
+	
+	int size = ll->size;
+	int index = 0;
+	while(size > 0)
+	{
+		// item이 현재 값 보다 크고, next 보다 작으면 삽입
+		if (temp->item == item)
+		{
+			break;
+		}
+		if (temp->item < item)
+		{
+			if (temp->next == NULL)
+			{
+				temp->next = malloc(sizeof(ListNode));
+				temp->next->item = item;
+				temp->next->next = NULL;				
+				ll->size++;
+				return ++index;
+			}		
+			else if (item < temp->next->item)
+			{
+				next = temp->next;
+				temp->next = malloc(sizeof(ListNode));
+				temp->next->item = item;
+				temp->next->next = next;
+				ll->size++;
+				return ++index;
+			}
+						
+		}
+		// 현재 값이 item보다 클때
+		else if (temp-> item > item)
+		{
+			if (temp->next == NULL)
+			{
+				temp->next = malloc(sizeof(ListNode));
+				temp->next->item = temp->item;
+				temp->next->next = NULL;
+				temp->item = item;
+				ll->size++;
+				return index;
+			}
+			else
+			{
+				ListNode *cur = malloc(sizeof(ListNode));
+				cur->next = temp->next;
+				cur->item = temp->item;
+				temp->next = cur;
+				temp->item = item;
+				ll->size++;
+				return index;
+			}
+		}
+		temp = temp->next;
+		size--;
+		index++;
+	}
+	
+	return -1;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Linked Lists Questions - 한국어 번역</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+<style>
+:root{color-scheme:light;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;max-width:900px;margin:40px auto;padding:0 24px;line-height:1.7;color:#222;background:#fff;}
+h1,h2,h3{line-height:1.35;margin-top:1.8em;}
+h1{font-size:2rem;border-bottom:2px solid #ddd;padding-bottom:.4rem;}
+h2{font-size:1.45rem;border-bottom:1px solid #eee;padding-bottom:.25rem;}
+pre{background:#f6f8fa;border:1px solid #e5e7eb;border-radius:8px;padding:14px;overflow-x:auto;}
+code{font-family:Consolas,"SFMono-Regular",Menlo,monospace;font-size:.95em;}
+p code,li code{background:#f3f4f6;padding:.1em .3em;border-radius:4px;}
+table{border-collapse:collapse;width:100%;margin:1em 0;}
+th,td{border:1px solid #ddd;padding:8px 10px;text-align:left;}
+th{background:#f6f6f6;}
+blockquote{border-left:4px solid #ddd;margin:1em 0;padding:.2em 1em;color:#555;}
+hr{border:0;border-top:1px solid #ddd;margin:2em 0;}
+@media print{body{max-width:none;margin:0;padding:20mm;}a{color:inherit;text-decoration:none;}}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Linked Lists Questions - 한국어 번역</h1>
+</header>
+<p><strong>Section A - 연결 리스트</strong></p>
+<p>[이 섹션에서 지정된 문제 1개에 답하십시오.]</p>
+<p>안내: 문제별 프로그램 템플릿은 APAS 시스템에서 제공됩니다. 반드시
+해당 템플릿을 사용하여 함수를 구현하십시오.</p>
+<p><strong>1. (insertSortedLL)</strong></p>
+<p>사용자로부터 정수 하나를 입력받아 연결 리스트에 오름차순으로 삽입하는
+C 함수 insertSortedLL()을 작성하십시오. 현재 연결 리스트에 같은 정수가
+이미 존재한다면 삽입해서는 안 됩니다. 함수는 새 항목이 삽입된 인덱스
+위치를 반환해야 하며, 정상적으로 수행하지 못한 경우 -1을 반환해야
+합니다. 연결 리스트는 이미 정렬된 연결 리스트이거나 빈 리스트라고 가정할
+수 있습니다.</p>
+<p><strong>함수 원형은 다음과 같습니다.</strong></p>
+<blockquote>
+<p>int insertSortedLL(LinkedList *ll, int item);</p>
+</blockquote>
+<p>현재 연결 리스트가 다음과 같다고 가정합니다: 2, 3, 5, 7, 9.</p>
+<p>insertSortedLL()을 값 8로 호출하면 연결 리스트는 다음과 같이
+됩니다:</p>
+<blockquote>
+<p>2, 3, 5, 7, 8, 9</p>
+</blockquote>
+<p>함수는 새 항목이 삽입된 인덱스 위치를 반환해야 합니다:</p>
+<blockquote>
+<p>값 8은 인덱스 4에 추가되었습니다.</p>
+</blockquote>
+<p>현재 연결 리스트가 다음과 같다고 가정합니다: 5, 7, 9, 11, 15.</p>
+<p>insertSortedLL()을 값 7로 호출하면 연결 리스트는 다음과 같이 그대로
+유지됩니다:</p>
+<blockquote>
+<p>5, 7, 9, 11, 15</p>
+</blockquote>
+<p>값 7은 이미 존재하므로 함수는 정상적으로 삽입을 완료하지 못합니다.
+따라서 -1을 반환해야 합니다:</p>
+<blockquote>
+<p>값 7은 인덱스 -1에 추가되었습니다.</p>
+</blockquote>
+<p><strong>예시 입력 및 출력은 다음과 같습니다.</strong></p>
+<blockquote>
+<p>1: 정렬된 연결 리스트에 정수 삽입<br />
+2: 가장 최근에 입력한 값의 인덱스 출력<br />
+3: 정렬된 연결 리스트 출력<br />
+0: 종료<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 2<br />
+결과 연결 리스트: 2<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 3<br />
+결과 연결 리스트: 2 3<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 5<br />
+결과 연결 리스트: 2 3 5<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 7<br />
+결과 연결 리스트: 2 3 5 7<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 9<br />
+결과 연결 리스트: 2 3 5 7 9<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 8<br />
+결과 연결 리스트: 2 3 5 7 8 9<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 2<br />
+값 8은 인덱스 4에 추가되었습니다.<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 3<br />
+결과 정렬 연결 리스트: 2 3 5 7 8 9<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 5<br />
+결과 연결 리스트: 2 3 5 7 8 9<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 2<br />
+값 5은(는) 인덱스 -1에 추가되었습니다.<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 3<br />
+결과 정렬 연결 리스트: 2 3 5 7 8 9<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 11<br />
+결과 연결 리스트: 2 3 5 7 8 9 11<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 2<br />
+값 11은 인덱스 6에 추가되었습니다.<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 3<br />
+결과 정렬 연결 리스트: 2 3 5 7 8 9 11</p>
+</blockquote>
+<p><strong>2. (alternateMergeLL)</strong></p>
+<p>두 번째 연결 리스트의 노드들을 첫 번째 연결 리스트의 한 칸 건너
+위치마다 번갈아 삽입하는 C 함수 alternateMergeLL()을 작성하십시오. 두
+번째 리스트의 노드는 첫 번째 리스트에서 번갈아 삽입할 수 있는 위치가
+있을 때만 삽입해야 합니다.</p>
+<p><strong>함수 원형은 다음과 같습니다.</strong></p>
+<blockquote>
+<p>void alternateMergeLL(LinkedList *ll1, LinkedList *ll2);</p>
+</blockquote>
+<p>예를 들어 두 연결 리스트가 다음과 같다고 가정합니다:</p>
+<blockquote>
+<p>LinkedList1: 1, 2, 3<br />
+LinkedList2: 4, 5, 6, 7</p>
+</blockquote>
+<p>결과 연결 리스트는 다음과 같습니다:</p>
+<blockquote>
+<p>LinkedList1: 1, 4, 2, 5, 3, 6<br />
+LinkedList2: 7</p>
+</blockquote>
+<p>첫 번째 리스트가 두 번째 리스트보다 더 길다면 두 번째 리스트는 비어야
+합니다. 예를 들어 다음과 같습니다:</p>
+<blockquote>
+<p>LinkedList1: 1, 5, 7, 3, 9, 11<br />
+LinkedList2: 6, 10, 2, 4</p>
+</blockquote>
+<p>결과:</p>
+<blockquote>
+<p>LinkedList1: 1, 6, 5, 10, 7, 2, 3, 4, 9, 11<br />
+LinkedList2: 비어 있음</p>
+</blockquote>
+<p><strong>예시 입력 및 출력 세션(초기 리스트가 Linked list 1: 1, 2, 3 /
+Linked list 2: 4, 5, 6, 7인 경우):</strong></p>
+<blockquote>
+<p>Linked list 1: 1 2 3<br />
+Linked list 2: 4 5 6 7<br />
+선택을 입력하십시오(1/2/3/0): 3<br />
+주어진 연결 리스트를 병합한 결과:<br />
+Linked list 1: 1 4 2 5 3 6<br />
+Linked list 2: 7</p>
+</blockquote>
+<p><strong>3. (moveOddItemsToBackLL)</strong></p>
+<p>연결 리스트의 모든 홀수를 리스트의 뒤쪽으로 이동시키는 C 함수
+moveOddItemsToBackLL()을 작성하십시오.</p>
+<p><strong>함수 원형은 다음과 같습니다.</strong></p>
+<blockquote>
+<p>void moveOddItemsToBackLL(LinkedList *ll);</p>
+</blockquote>
+<p><strong>예시 입력 및 출력은 다음과 같습니다.</strong></p>
+<blockquote>
+<p>연결 리스트가 2, 3, 4, 7, 15, 18인 경우:<br />
+홀수를 뒤로 이동한 결과: 2 4 18 3 7 15<br />
+<br />
+연결 리스트가 2, 7, 18, 3, 4, 15인 경우:<br />
+홀수를 뒤로 이동한 결과: 2 18 4 7 3 15<br />
+<br />
+현재 연결 리스트가 1, 3, 5인 경우:<br />
+결과: 1 3 5<br />
+<br />
+현재 연결 리스트가 2, 4, 6인 경우:<br />
+결과: 2 4 6</p>
+</blockquote>
+<p><strong>4. (moveEvenItemsToBackLL)</strong></p>
+<p>연결 리스트의 모든 짝수를 리스트의 뒤쪽으로 이동시키는 C 함수
+moveEvenItemsToBackLL()을 작성하십시오.</p>
+<p><strong>함수 원형은 다음과 같습니다.</strong></p>
+<blockquote>
+<p>void moveEvenItemsToBackLL(LinkedList *ll);</p>
+</blockquote>
+<p><strong>예시 입력 및 출력은 다음과 같습니다.</strong></p>
+<blockquote>
+<p>연결 리스트가 2, 3, 4, 7, 15, 18인 경우:<br />
+짝수를 뒤로 이동한 결과: 3 7 15 2 4 18<br />
+<br />
+연결 리스트가 2, 7, 18, 3, 4, 15인 경우:<br />
+짝수를 뒤로 이동한 결과: 7 3 15 2 18 4<br />
+<br />
+현재 연결 리스트가 1, 3, 5인 경우:<br />
+결과: 1 3 5<br />
+<br />
+현재 연결 리스트가 2, 4, 6인 경우:<br />
+결과: 2 4 6</p>
+</blockquote>
+<p><strong>5. (frontBackSplitLL)</strong></p>
+<p>단일 연결 리스트를 앞쪽 절반과 뒤쪽 절반의 두 하위 리스트로 분할하는
+C 함수 frontBackSplitLL()을 작성하십시오. 원소 수가 홀수라면 남는 원소
+하나는 앞쪽 리스트에 포함되어야 합니다. frontBackSplitLL()은 frontList와
+backList 두 리스트를 출력합니다.</p>
+<p><strong>함수 원형은 다음과 같습니다.</strong></p>
+<blockquote>
+<p>void frontBackSplitLL(LinkedList *ll, LinkedList *resultFrontList,
+LinkedList *resultBackList);</p>
+</blockquote>
+<p>예를 들어 주어진 연결 리스트가 다음과 같다고 가정합니다:</p>
+<blockquote>
+<p>2, 3, 5, 6, 7</p>
+</blockquote>
+<p>결과 리스트는 다음과 같습니다:</p>
+<blockquote>
+<p>frontList: 2, 3, 5<br />
+backList: 6, 7</p>
+</blockquote>
+<p><strong>예시 입력 및 출력 세션은 다음과 같습니다.</strong></p>
+<blockquote>
+<p>1: 연결 리스트에 정수 삽입<br />
+2: 연결 리스트 출력<br />
+3: 연결 리스트를 frontList와 backList 두 개로 분할<br />
+0: 종료<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 2<br />
+결과 연결 리스트: 2<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 3<br />
+결과 연결 리스트: 2 3<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 5<br />
+결과 연결 리스트: 2 3 5<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 6<br />
+결과 연결 리스트: 2 3 5 6<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 7<br />
+결과 연결 리스트: 2 3 5 6 7<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 2<br />
+결과 연결 리스트: 2 3 5 6 7<br />
+<br />
+선택을 입력하십시오(1/2/3/0): 3<br />
+주어진 연결 리스트를 분할한 결과:<br />
+앞쪽 연결 리스트: 2 3 5<br />
+뒤쪽 연결 리스트: 6 7</p>
+</blockquote>
+<p><strong>6. (moveMaxToFront)</strong></p>
+<p>정수 연결 리스트를 최대 한 번만 순회한 뒤, 저장된 값이 가장 큰 노드를
+리스트의 맨 앞으로 이동시키는 C 함수 moveMaxToFront()를
+작성하십시오.</p>
+<p><strong>함수 원형은 다음과 같습니다.</strong></p>
+<blockquote>
+<p>int moveMaxToFront(ListNode **ptrHead);</p>
+</blockquote>
+<p>예를 들어 연결 리스트가 (30, 20, 40, 70, 50)이라면 결과는 (70, 30,
+20, 40, 50)이 됩니다.</p>
+<p><strong>예시 입력 및 출력 세션은 다음과 같습니다.</strong></p>
+<blockquote>
+<p>1: 연결 리스트에 정수 삽입<br />
+2: 가장 큰 값이 저장된 노드를 맨 앞으로 이동<br />
+0: 종료<br />
+<br />
+선택을 입력하십시오(1/2/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 30<br />
+연결 리스트: 30<br />
+<br />
+선택을 입력하십시오(1/2/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 20<br />
+연결 리스트: 30 20<br />
+<br />
+선택을 입력하십시오(1/2/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 40<br />
+연결 리스트: 30 20 40<br />
+<br />
+선택을 입력하십시오(1/2/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 70<br />
+연결 리스트: 30 20 40 70<br />
+<br />
+선택을 입력하십시오(1/2/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 50<br />
+연결 리스트: 30 20 40 70 50<br />
+<br />
+선택을 입력하십시오(1/2/0): 2<br />
+결과 연결 리스트: 70 30 20 40 50<br />
+<br />
+선택을 입력하십시오(1/2/0): 0</p>
+</blockquote>
+<p><strong>7. (recursiveReverse)</strong></p>
+<p>next 포인터와 head 포인터를 변경하여 주어진 연결 리스트를 재귀적으로
+역순으로 만드는 C 함수 recursiveReverse()를 작성하십시오.</p>
+<p><strong>함수 원형은 다음과 같습니다.</strong></p>
+<blockquote>
+<p>void recursiveReverse(ListNode **ptrHead);</p>
+</blockquote>
+<p>예를 들어 연결 리스트가 (1, 2, 3, 4, 5)라면 결과는 (5, 4, 3, 2, 1)이
+됩니다.</p>
+<p><strong>예시 입력 및 출력 세션은 다음과 같습니다.</strong></p>
+<blockquote>
+<p>1: 연결 리스트에 정수 삽입<br />
+2: 연결 리스트 역순 변환<br />
+0: 종료<br />
+<br />
+선택을 입력하십시오(1/2/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 1<br />
+결과 연결 리스트: 1<br />
+<br />
+선택을 입력하십시오(1/2/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 2<br />
+결과 연결 리스트: 1 2<br />
+<br />
+선택을 입력하십시오(1/2/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 3<br />
+결과 연결 리스트: 1 2 3<br />
+<br />
+선택을 입력하십시오(1/2/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 4<br />
+결과 연결 리스트: 1 2 3 4<br />
+<br />
+선택을 입력하십시오(1/2/0): 1<br />
+연결 리스트에 추가할 정수를 입력하십시오: 5<br />
+결과 연결 리스트: 1 2 3 4 5<br />
+<br />
+선택을 입력하십시오(1/2/0): 2<br />
+역순 변환 후 결과 연결 리스트: 5 4 3 2 1<br />
+<br />
+선택을 입력하십시오(1/2/0): 0</p>
+</blockquote>
+<p>※ 원본 PDF에 포함된 일부 손글씨/주석은 문자 인식 상태가 불명확하여 본
+번역본에서는 본문 문제와 예시 입출력을 중심으로 정리했습니다.</p>
+</body>
+</html>
