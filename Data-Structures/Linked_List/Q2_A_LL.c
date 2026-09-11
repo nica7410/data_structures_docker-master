@@ -103,7 +103,25 @@ int main()
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
+	/* add your code here */
+	int maxMergeNum = 0;
+	if (ll1->size >= ll2->size) maxMergeNum = ll2->size;
+	else maxMergeNum = ll1->size;
+	
+	ListNode *curll2Node;
+
+	int mergeIndex = 1;
+	for(int i = 0; i< maxMergeNum; i++)
+	{
+		curll2Node = findNode(ll2, i);
+		insertNode(ll1, mergeIndex, curll2Node->item);
+		mergeIndex += 2;
+	}
+
+	for(int i = 0; i< maxMergeNum; i++)
+	{
+		removeNode(ll2, 0);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

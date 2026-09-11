@@ -87,6 +87,81 @@ int main()
 void moveOddItemsToBack(LinkedList *ll)
 {
 	/* add your code here */
+	ListNode *cur;
+	if (ll == NULL)	return;
+	cur = ll->head;
+	int size = ll->size;
+
+	// 홀수가 담기는 배열
+	int oddArray[size];
+	// 최대 홀수 인덱스
+	int oddMaxIndex = 0;
+	// 짝수나 홀수가 있는지
+	bool isEven = false, isOdd = false;
+
+	while (cur != NULL)
+	{
+		if(cur->item % 2 != 0)
+		{
+			oddArray[oddMaxIndex] = cur->item;
+			oddMaxIndex++;
+			isOdd = true;
+		}
+		else
+		{
+			isEven = true;
+		}
+		cur = cur->next;
+	}
+
+	// 옮길 데이터가 있을때
+	if(!isEven || !isOdd) return;
+	
+	// 초기화
+	ListNode *prv = NULL;
+	cur = ll->head;
+
+	int oddNowIndex = 0;
+	
+	while (cur->next != NULL && oddNowIndex < oddMaxIndex)
+	{		
+		if(cur->item % 2 != 0)
+		{		
+			oddNowIndex++;
+			if(prv == NULL)
+			{
+				ll->head = cur->next;
+				free(cur);
+				cur = ll->head;				
+			}
+			else
+			{
+				prv->next = cur->next;
+				free(cur);
+				cur = prv->next;				
+			}
+			ll->size--;
+			continue;
+		}
+		prv = cur;
+		cur = cur->next;
+	}
+
+	// 마지막 인덱스로 이동
+	while(cur->next != NULL)
+	{
+		cur = cur->next;
+	}
+
+	for(int i = 0; i<oddMaxIndex; i++)
+	{
+		cur->next = malloc(sizeof(ListNode));
+		cur->next->item = oddArray[i];
+		cur->next->next = NULL;
+		cur = cur->next;
+		
+		ll->size++;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
