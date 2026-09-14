@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>섹션 F - 이진 탐색 트리 문제 한글 번역</title>
+<style>
+:root {
+  --bg:#f5f7fb;
+  --card:#ffffff;
+  --text:#172033;
+  --muted:#65758b;
+  --line:#dbe3ef;
+  --accent:#1d4ed8;
+  --accent-soft:#eff6ff;
+  --code:#111827;
+  --code-text:#e5e7eb;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",Arial,sans-serif;
+  line-height:1.72;
+}
+main {
+  max-width:980px;
+  margin:0 auto;
+  padding:44px 24px 72px;
+}
+header {
+  background:linear-gradient(135deg,#0f172a,#1e40af);
+  color:white;
+  padding:34px 38px;
+  border-radius:20px;
+  margin-bottom:26px;
+  box-shadow:0 14px 36px rgba(15,23,42,.14);
+}
+header h1 { margin:0 0 8px; font-size:2rem; }
+header p { margin:0; color:#dbeafe; }
+.notice {
+  background:var(--accent-soft);
+  border-left:4px solid var(--accent);
+  padding:14px 18px;
+  border-radius:10px;
+  margin-bottom:24px;
+}
+section {
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:28px 30px;
+  margin-bottom:22px;
+  box-shadow:0 6px 18px rgba(15,23,42,.05);
+}
+h2 { margin:0 0 14px; font-size:1.3rem; }
+h3 { margin:22px 0 8px; font-size:1rem; color:#334155; }
+p { margin:10px 0; }
+code.inline {
+  background:#eef2f7;
+  padding:2px 6px;
+  border-radius:5px;
+  font-family:Consolas,"Courier New",monospace;
+  font-size:.94em;
+}
+pre {
+  background:var(--code);
+  color:var(--code-text);
+  padding:16px 18px;
+  border-radius:12px;
+  overflow-x:auto;
+  font-family:Consolas,"Courier New",monospace;
+  font-size:.93rem;
+  line-height:1.55;
+}
+.figure {
+  max-width:700px;
+  margin:18px auto;
+  background:#fbfdff;
+  border:1px solid #e2e8f0;
+  border-radius:12px;
+  padding:12px;
+  text-align:center;
+}
+.figure figcaption {
+  color:var(--muted);
+  font-size:.92rem;
+}
+.tree-svg { width:100%; height:auto; display:block; }
+.edge { stroke:#475569; stroke-width:2; }
+.node { fill:#fff; stroke:#111827; stroke-width:3; }
+.label { font:19px Arial,sans-serif; fill:#111827; }
+.rule {
+  margin-top:14px;
+  padding:14px 16px;
+  border-radius:10px;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+}
+footer {
+  color:var(--muted);
+  text-align:center;
+  font-size:.9rem;
+  margin-top:30px;
+}
+@media print {
+  body { background:white; }
+  main { max-width:none; padding:0; }
+  header,section { box-shadow:none; }
+}
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <h1>섹션 F - 이진 탐색 트리</h1>
+  <p>Binary Search Trees Questions - 한글 번역본</p>
+</header>
+
+<div class="notice">
+  <strong>안내:</strong> 이 섹션에서는 지정된 문제 1개에 답합니다.
+  문제용 프로그램 템플릿은 APAS 시스템에서 제공되며,
+  반드시 해당 템플릿을 사용하여 함수를 구현해야 합니다.
+</div>
+
+<section>
+  <h2>1. <code class="inline">levelOrderTraversal</code> - 레벨 순회</h2>
+  <p>
+    <strong>큐(queue)</strong>를 사용하여 이진 트리를 루트 레벨부터
+    레벨별로 순회하여 출력하는 <strong>반복형(iterative)</strong> C 함수를 작성하세요.
+  </p>
+  <p>
+    큐에 정수를 추가하거나 제거할 때는
+    <code class="inline">enqueue()</code>와 <code class="inline">dequeue()</code> 연산만 사용해야 합니다.
+    함수 시작 시 큐가 비어 있지 않다면 먼저 큐를 비워야 합니다.
+  </p>
+
+  <h3>함수 원형</h3>
+  <pre>void levelOrderIterative(BSTNode *root);</pre>
+
+  <p>
+    그림 1의 이진 트리에 대한 레벨 순회 결과는 다음과 같습니다.
+  </p>
+  <pre>20, 15, 50, 10, 18, 25, 80</pre>
+
+  <figure class="figure">
+    <svg class="tree-svg" viewBox="0 0 640 280" role="img" aria-label="그림 1, 3, 4, 5의 이진 탐색 트리"><line x1="320" y1="40" x2="205" y2="115" class="edge"/><line x1="320" y1="40" x2="435" y2="115" class="edge"/><line x1="205" y1="115" x2="135" y2="210" class="edge"/><line x1="205" y1="115" x2="260" y2="210" class="edge"/><line x1="435" y1="115" x2="390" y2="210" class="edge"/><line x1="435" y1="115" x2="515" y2="210" class="edge"/><circle cx="320" cy="40" r="27" class="node"/><text x="320" y="46" text-anchor="middle" class="label">20</text><circle cx="205" cy="115" r="27" class="node"/><text x="205" y="121" text-anchor="middle" class="label">15</text><circle cx="435" cy="115" r="27" class="node"/><text x="435" y="121" text-anchor="middle" class="label">50</text><circle cx="135" cy="210" r="27" class="node"/><text x="135" y="216" text-anchor="middle" class="label">10</text><circle cx="260" cy="210" r="27" class="node"/><text x="260" y="216" text-anchor="middle" class="label">18</text><circle cx="390" cy="210" r="27" class="node"/><text x="390" y="216" text-anchor="middle" class="label">25</text><circle cx="515" cy="210" r="27" class="node"/><text x="515" y="216" text-anchor="middle" class="label">80</text></svg>
+    <figcaption>그림 1</figcaption>
+  </figure>
+
+  <div class="rule">
+    레벨 순회는 위에서 아래로, 같은 레벨에서는 왼쪽에서 오른쪽 순서로 방문합니다.
+  </div>
+</section>
+
+<section>
+  <h2>2. <code class="inline">inOrderIterative</code> - 반복형 중위 순회</h2>
+  <p>
+    <strong>스택(stack)</strong>을 사용하여 이진 탐색 트리를
+    <strong>중위 순회(in-order traversal)</strong>하여 출력하는
+    반복형 C 함수 <code class="inline">inOrderIterative()</code>를 작성하세요.
+  </p>
+  <p>
+    스택에 정수를 추가하거나 제거할 때는
+    <code class="inline">push()</code>와 <code class="inline">pop()</code> 연산만 사용해야 합니다.
+    함수 시작 시 스택이 비어 있지 않다면 먼저 스택을 비워야 합니다.
+  </p>
+
+  <h3>함수 원형</h3>
+  <pre>void inOrderIterative(BSTNode *root);</pre>
+
+  <p>
+    그림 2의 이진 트리에 대한 반복형 중위 순회 결과는 다음과 같습니다.
+  </p>
+  <pre>10, 15, 18, 20, 50</pre>
+
+  <figure class="figure">
+    <svg class="tree-svg" viewBox="0 0 640 280" role="img" aria-label="그림 2의 이진 탐색 트리"><line x1="320" y1="40" x2="205" y2="115" class="edge"/><line x1="320" y1="40" x2="435" y2="115" class="edge"/><line x1="205" y1="115" x2="135" y2="210" class="edge"/><line x1="205" y1="115" x2="260" y2="210" class="edge"/><circle cx="320" cy="40" r="27" class="node"/><text x="320" y="46" text-anchor="middle" class="label">20</text><circle cx="205" cy="115" r="27" class="node"/><text x="205" y="121" text-anchor="middle" class="label">15</text><circle cx="435" cy="115" r="27" class="node"/><text x="435" y="121" text-anchor="middle" class="label">50</text><circle cx="135" cy="210" r="27" class="node"/><text x="135" y="216" text-anchor="middle" class="label">10</text><circle cx="260" cy="210" r="27" class="node"/><text x="260" y="216" text-anchor="middle" class="label">18</text></svg>
+    <figcaption>그림 2</figcaption>
+  </figure>
+
+  <div class="rule">
+    중위 순회 순서: <strong>왼쪽 서브트리 → 현재 노드 → 오른쪽 서브트리</strong>
+  </div>
+</section>
+
+<section>
+  <h2>3. <code class="inline">preOrderIterative</code> - 반복형 전위 순회</h2>
+  <p>
+    <strong>스택(stack)</strong>을 사용하여 이진 탐색 트리를
+    <strong>전위 순회(pre-order traversal)</strong>하여 출력하는
+    반복형 C 함수 <code class="inline">preOrderIterative()</code>를 작성하세요.
+  </p>
+  <p>
+    스택에 정수를 추가하거나 제거할 때는
+    <code class="inline">push()</code>와 <code class="inline">pop()</code> 연산만 사용해야 합니다.
+    함수 시작 시 스택이 비어 있지 않다면 먼저 스택을 비워야 합니다.
+  </p>
+
+  <h3>함수 원형</h3>
+  <pre>void preOrderIterative(BSTNode *root);</pre>
+
+  <p>
+    그림 3의 이진 트리에 대한 반복형 전위 순회 결과는 다음과 같습니다.
+  </p>
+  <pre>20, 15, 10, 18, 50, 25, 80</pre>
+
+  <figure class="figure">
+    <svg class="tree-svg" viewBox="0 0 640 280" role="img" aria-label="그림 1, 3, 4, 5의 이진 탐색 트리"><line x1="320" y1="40" x2="205" y2="115" class="edge"/><line x1="320" y1="40" x2="435" y2="115" class="edge"/><line x1="205" y1="115" x2="135" y2="210" class="edge"/><line x1="205" y1="115" x2="260" y2="210" class="edge"/><line x1="435" y1="115" x2="390" y2="210" class="edge"/><line x1="435" y1="115" x2="515" y2="210" class="edge"/><circle cx="320" cy="40" r="27" class="node"/><text x="320" y="46" text-anchor="middle" class="label">20</text><circle cx="205" cy="115" r="27" class="node"/><text x="205" y="121" text-anchor="middle" class="label">15</text><circle cx="435" cy="115" r="27" class="node"/><text x="435" y="121" text-anchor="middle" class="label">50</text><circle cx="135" cy="210" r="27" class="node"/><text x="135" y="216" text-anchor="middle" class="label">10</text><circle cx="260" cy="210" r="27" class="node"/><text x="260" y="216" text-anchor="middle" class="label">18</text><circle cx="390" cy="210" r="27" class="node"/><text x="390" y="216" text-anchor="middle" class="label">25</text><circle cx="515" cy="210" r="27" class="node"/><text x="515" y="216" text-anchor="middle" class="label">80</text></svg>
+    <figcaption>그림 3</figcaption>
+  </figure>
+
+  <div class="rule">
+    전위 순회 순서: <strong>현재 노드 → 왼쪽 서브트리 → 오른쪽 서브트리</strong>
+  </div>
+</section>
+
+<section>
+  <h2>4. <code class="inline">postOrderIterativeS1</code> - 스택 1개를 이용한 반복형 후위 순회</h2>
+  <p>
+    <strong>스택 하나</strong>를 사용하여 이진 탐색 트리를
+    <strong>후위 순회(post-order traversal)</strong>하여 출력하는
+    반복형 C 함수 <code class="inline">postOrderIterativeS1()</code>을 작성하세요.
+  </p>
+  <p>
+    스택에 정수를 추가하거나 제거할 때는
+    <code class="inline">push()</code>와 <code class="inline">pop()</code> 연산만 사용해야 합니다.
+    함수 시작 시 스택이 비어 있지 않다면 먼저 스택을 비워야 합니다.
+  </p>
+
+  <h3>함수 원형</h3>
+  <pre>void postOrderIterativeS1(BSTNode *node);</pre>
+
+  <p>
+    그림 4의 이진 트리에 대한 반복형 후위 순회 결과는 다음과 같습니다.
+  </p>
+  <pre>10, 18, 15, 25, 80, 50, 20</pre>
+
+  <figure class="figure">
+    <svg class="tree-svg" viewBox="0 0 640 280" role="img" aria-label="그림 1, 3, 4, 5의 이진 탐색 트리"><line x1="320" y1="40" x2="205" y2="115" class="edge"/><line x1="320" y1="40" x2="435" y2="115" class="edge"/><line x1="205" y1="115" x2="135" y2="210" class="edge"/><line x1="205" y1="115" x2="260" y2="210" class="edge"/><line x1="435" y1="115" x2="390" y2="210" class="edge"/><line x1="435" y1="115" x2="515" y2="210" class="edge"/><circle cx="320" cy="40" r="27" class="node"/><text x="320" y="46" text-anchor="middle" class="label">20</text><circle cx="205" cy="115" r="27" class="node"/><text x="205" y="121" text-anchor="middle" class="label">15</text><circle cx="435" cy="115" r="27" class="node"/><text x="435" y="121" text-anchor="middle" class="label">50</text><circle cx="135" cy="210" r="27" class="node"/><text x="135" y="216" text-anchor="middle" class="label">10</text><circle cx="260" cy="210" r="27" class="node"/><text x="260" y="216" text-anchor="middle" class="label">18</text><circle cx="390" cy="210" r="27" class="node"/><text x="390" y="216" text-anchor="middle" class="label">25</text><circle cx="515" cy="210" r="27" class="node"/><text x="515" y="216" text-anchor="middle" class="label">80</text></svg>
+    <figcaption>그림 4</figcaption>
+  </figure>
+
+  <div class="rule">
+    후위 순회 순서: <strong>왼쪽 서브트리 → 오른쪽 서브트리 → 현재 노드</strong>
+  </div>
+</section>
+
+<section>
+  <h2>5. <code class="inline">postOrderIterativeS2</code> - 스택 2개를 이용한 반복형 후위 순회</h2>
+  <p>
+    <strong>스택 두 개</strong>를 사용하여 이진 탐색 트리를
+    <strong>후위 순회(post-order traversal)</strong>하여 출력하는
+    반복형 C 함수 <code class="inline">postOrderIterativeS2()</code>를 작성하세요.
+  </p>
+  <p>
+    각 스택에 정수를 추가하거나 제거할 때는
+    <code class="inline">push()</code>와 <code class="inline">pop()</code> 연산만 사용해야 합니다.
+    함수 시작 시 스택들이 비어 있지 않다면 먼저 모두 비워야 합니다.
+  </p>
+
+  <h3>함수 원형</h3>
+  <pre>void postOrderIterativeS2(BSTNode *root);</pre>
+
+  <p>
+    그림 5의 이진 트리에 대한 반복형 후위 순회 결과는 다음과 같습니다.
+  </p>
+  <pre>10, 18, 15, 25, 80, 50, 20</pre>
+
+  <figure class="figure">
+    <svg class="tree-svg" viewBox="0 0 640 280" role="img" aria-label="그림 1, 3, 4, 5의 이진 탐색 트리"><line x1="320" y1="40" x2="205" y2="115" class="edge"/><line x1="320" y1="40" x2="435" y2="115" class="edge"/><line x1="205" y1="115" x2="135" y2="210" class="edge"/><line x1="205" y1="115" x2="260" y2="210" class="edge"/><line x1="435" y1="115" x2="390" y2="210" class="edge"/><line x1="435" y1="115" x2="515" y2="210" class="edge"/><circle cx="320" cy="40" r="27" class="node"/><text x="320" y="46" text-anchor="middle" class="label">20</text><circle cx="205" cy="115" r="27" class="node"/><text x="205" y="121" text-anchor="middle" class="label">15</text><circle cx="435" cy="115" r="27" class="node"/><text x="435" y="121" text-anchor="middle" class="label">50</text><circle cx="135" cy="210" r="27" class="node"/><text x="135" y="216" text-anchor="middle" class="label">10</text><circle cx="260" cy="210" r="27" class="node"/><text x="260" y="216" text-anchor="middle" class="label">18</text><circle cx="390" cy="210" r="27" class="node"/><text x="390" y="216" text-anchor="middle" class="label">25</text><circle cx="515" cy="210" r="27" class="node"/><text x="515" y="216" text-anchor="middle" class="label">80</text></svg>
+    <figcaption>그림 5</figcaption>
+  </figure>
+
+  <div class="rule">
+    이 문제는 4번과 같은 후위 순회 결과를 만들지만, 구현할 때 <strong>스택을 두 개 사용</strong>한다는 점이 다릅니다.
+  </div>
+</section>
+
+<footer>
+  원본 PDF의 문제 문장, 함수 원형, 예시 순회 결과, 그림 구조를 바탕으로 작성한 한글 번역본입니다.
+</footer>
+
+</main>
+</body>
+</html>

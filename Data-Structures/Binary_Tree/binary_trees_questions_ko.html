@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>섹션 E - 이진 트리 문제 한글 번역</title>
+<style>
+:root {
+  --bg:#f4f7fb; --card:#fff; --text:#172033; --muted:#667085;
+  --line:#d9e2ef; --blue:#2458d3; --blue-soft:#eef4ff;
+  --orange:#c96a16; --orange-soft:#fff7ed; --red:#d73535;
+  --code:#111827; --code-text:#e5e7eb;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",Arial,sans-serif;
+  line-height:1.72;
+}
+main { max-width:1040px; margin:0 auto; padding:44px 24px 80px; }
+header {
+  background:linear-gradient(135deg,#111827,#1f4aa5);
+  color:white; border-radius:20px; padding:34px 38px; margin-bottom:26px;
+  box-shadow:0 16px 40px rgba(17,24,39,.13);
+}
+header h1 { margin:0 0 8px; font-size:2rem; }
+header p { margin:0; color:#dbeafe; }
+.notice {
+  border-left:4px solid var(--blue); background:var(--blue-soft);
+  border-radius:10px; padding:14px 18px; margin:0 0 24px;
+}
+section {
+  background:var(--card); border:1px solid var(--line); border-radius:16px;
+  padding:28px 30px; margin:0 0 22px;
+  box-shadow:0 7px 22px rgba(15,23,42,.045);
+}
+h2 { margin:0 0 14px; font-size:1.34rem; color:#0f172a; }
+h3 { margin:22px 0 9px; font-size:1rem; color:#334155; }
+p { margin:10px 0; }
+code.inline {
+  background:#eef2f7; padding:2px 6px; border-radius:5px;
+  font-family:Consolas,"Courier New",monospace; font-size:.94em;
+}
+pre {
+  margin:10px 0 0; padding:16px 18px; overflow:auto;
+  background:var(--code); color:var(--code-text); border-radius:12px;
+  font-family:Consolas,"Courier New",monospace; font-size:.9rem;
+  line-height:1.55; white-space:pre-wrap;
+}
+.figure {
+  margin:18px auto; max-width:700px; text-align:center;
+  border:1px solid #e2e8f0; border-radius:13px; padding:12px 10px 8px;
+  background:#fbfdff;
+}
+.figure figcaption { color:var(--muted); font-size:.92rem; margin-top:2px; }
+.tree-svg { width:100%; height:auto; display:block; }
+.edge { stroke:#475569; stroke-width:2; }
+.node { fill:#fff; stroke:#111827; stroke-width:3; }
+.node.highlight { stroke:var(--red); }
+.label { font:19px Arial,sans-serif; fill:#111827; }
+.highlight-text { fill:var(--red); }
+.arrow { font:54px Arial,sans-serif; fill:#64748b; }
+.fig-sub { font:15px Arial,sans-serif; fill:#64748b; }
+.note {
+  margin-top:16px; padding:14px 16px; border-left:4px solid #f59e0b;
+  background:var(--orange-soft); border-radius:9px;
+}
+.note strong { color:#9a3412; }
+.sample {
+  background:#f8fafc; border:1px solid #e2e8f0;
+  border-radius:12px; padding:14px 16px; margin-top:12px;
+}
+details {
+  margin-top:16px; border:1px solid #dce4ef; border-radius:10px;
+  background:#fafcff; overflow:hidden;
+}
+summary {
+  cursor:pointer; padding:12px 15px; font-weight:700; color:#334155;
+}
+details > div { padding:0 15px 15px; }
+.small { color:var(--muted); font-size:.92rem; }
+.red { color:var(--red); font-weight:700; }
+ul { margin-top:8px; }
+footer { color:var(--muted); text-align:center; font-size:.9rem; margin-top:30px; }
+@media (max-width:700px) {
+  main { padding:24px 14px 56px; }
+  header { padding:26px 22px; }
+  section { padding:22px 18px; }
+}
+@media print {
+  body { background:white; }
+  main { max-width:none; padding:0; }
+  header,section { box-shadow:none; }
+  details { break-inside:avoid; }
+  details[open] summary { display:none; }
+}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>섹션 E - 이진 트리</h1>
+  <p>Binary Trees Questions - 한글 번역본</p>
+</header>
+
+<div class="notice">
+  <strong>안내:</strong> 이 섹션에서는 지정된 문제 1개에 답합니다.
+  문제용 프로그램 템플릿은 APAS 시스템에서 제공되며,
+  반드시 해당 템플릿을 사용하여 함수를 구현해야 합니다.
+</div>
+
+<section>
+<h2>1. <code class="inline">identical</code> - 두 이진 트리가 동일한지 확인</h2>
+<p>
+두 이진 트리를 <code class="inline">tree1</code>과 <code class="inline">tree2</code>라고 할 때,
+두 트리가 구조적으로 동일한지 판단하는 재귀 C 함수
+<code class="inline">identical()</code>을 작성하세요.
+두 트리가 구조적으로 동일하면 1을, 그렇지 않으면 0을 반환합니다.
+</p>
+<p>
+두 이진 트리가 <strong>모두 비어 있거나</strong>, 또는 둘 다 비어 있지 않으면서
+왼쪽 서브트리와 오른쪽 서브트리가 서로 동일하면 두 트리는 구조적으로 동일합니다.
+즉, <strong>노드의 값이 같고 같은 방식으로 배치</strong>되어 있어야 합니다.
+</p>
+<h3>함수 원형</h3>
+<pre>int identical(BTNode *tree1, BTNode *tree2);</pre>
+<p>예를 들어 그림 1의 두 트리는 모두 중위 순회 결과가 <code class="inline">(1, 3, 2, 5, 4, 7, 8)</code>이고 구조와 값의 배치도 같으므로 구조적으로 동일합니다.</p>
+<figure class="figure"><svg class="tree-svg" viewBox="0 0 640 245" role="img" aria-label="그림 1 이진 트리"><line x1="320" y1="45" x2="205" y2="115" class="edge"/><line x1="320" y1="45" x2="435" y2="115" class="edge"/><line x1="205" y1="115" x2="140" y2="205" class="edge"/><line x1="205" y1="115" x2="250" y2="205" class="edge"/><line x1="435" y1="115" x2="390" y2="205" class="edge"/><line x1="435" y1="115" x2="500" y2="205" class="edge"/><circle cx="320" cy="45" r="27" class="node"/><text x="320" y="51" text-anchor="middle" class="label">5</text><circle cx="205" cy="115" r="27" class="node"/><text x="205" y="121" text-anchor="middle" class="label">3</text><circle cx="435" cy="115" r="27" class="node"/><text x="435" y="121" text-anchor="middle" class="label">7</text><circle cx="140" cy="205" r="27" class="node"/><text x="140" y="211" text-anchor="middle" class="label">1</text><circle cx="250" cy="205" r="27" class="node"/><text x="250" y="211" text-anchor="middle" class="label">2</text><circle cx="390" cy="205" r="27" class="node"/><text x="390" y="211" text-anchor="middle" class="label">4</text><circle cx="500" cy="205" r="27" class="node"/><text x="500" y="211" text-anchor="middle" class="label">8</text></svg><figcaption>그림 1: tree1과 tree2는 동일한 구조와 값을 가집니다.</figcaption></figure>
+<div class="note">
+<strong>원문에 적힌 참고 메모 번역:</strong>
+<ul>
+<li>둘 다 <code class="inline">NULL</code>이면 1을 반환합니다.</li>
+<li>둘 중 하나만 <code class="inline">NULL</code>이면 0을 반환합니다.</li>
+<li>두 노드의 <code class="inline">item</code> 값이 다르면 0을 반환합니다.</li>
+<li>그 외에는 왼쪽과 오른쪽 서브트리를 각각 검사한 결과를 이용합니다.</li>
+</ul>
+</div>
+<details>
+<summary>예시 입력/출력 번역 보기</summary>
+<div><pre>1: 이진 트리 tree1 생성
+2: 이진 트리 tree2 생성
+3: 두 트리가 구조적으로 동일한지 확인
+0: 종료
+
+선택을 입력하세요(1/2/3/0): 1
+tree1 생성 중:
+이진 트리에 추가할 정수를 입력하세요. 알파벳 입력은 NULL로 처리됩니다.
+
+루트 값 입력: 5
+5의 왼쪽 자식 값 입력: 3
+5의 오른쪽 자식 값 입력: 7
+3의 왼쪽 자식 값 입력: 1
+3의 오른쪽 자식 값 입력: 2
+1의 왼쪽 자식 값 입력: a
+1의 오른쪽 자식 값 입력: a
+2의 왼쪽 자식 값 입력: a
+2의 오른쪽 자식 값 입력: a
+7의 왼쪽 자식 값 입력: 4
+7의 오른쪽 자식 값 입력: 8
+4의 왼쪽 자식 값 입력: a
+4의 오른쪽 자식 값 입력: a
+8의 왼쪽 자식 값 입력: a
+8의 오른쪽 자식 값 입력: a
+생성된 tree1: 1 3 2 5 4 7 8
+
+선택을 입력하세요(1/2/3/0): 2
+tree2 생성 중:
+이진 트리에 추가할 정수를 입력하세요. 알파벳 입력은 NULL로 처리됩니다.
+
+루트 값 입력: 5
+5의 왼쪽 자식 값 입력: 3
+5의 오른쪽 자식 값 입력: 7
+3의 왼쪽 자식 값 입력: 1
+3의 오른쪽 자식 값 입력: 2
+1의 왼쪽 자식 값 입력: a
+1의 오른쪽 자식 값 입력: a
+2의 왼쪽 자식 값 입력: a
+2의 오른쪽 자식 값 입력: a
+7의 왼쪽 자식 값 입력: 4
+7의 오른쪽 자식 값 입력: 8
+4의 왼쪽 자식 값 입력: a
+4의 오른쪽 자식 값 입력: a
+8의 왼쪽 자식 값 입력: a
+8의 오른쪽 자식 값 입력: a
+생성된 tree2: 1 3 2 5 4 7 8
+
+선택을 입력하세요(1/2/3/0): 3
+두 트리는 구조적으로 동일합니다.
+
+선택을 입력하세요(1/2/3/0): 0</pre></div>
+</details>
+</section>
+
+<section>
+<h2>2. <code class="inline">maxHeight</code> - 이진 트리의 최대 높이</h2>
+<p>
+이진 트리 루트 노드를 가리키는 포인터를 받아,
+루트에서 가장 멀리 있는 리프 노드까지의 가장 긴 경로에 포함된
+<strong>링크(간선)의 개수</strong>를 반환하는 C 함수
+<code class="inline">maxHeight()</code>를 작성하세요.
+</p>
+<p>
+특정 노드의 높이는 그 노드에서 가장 깊은 리프 노드까지의 링크 개수입니다.
+<strong>빈 트리의 높이는 -1</strong>이라고 가정합니다.
+</p>
+<h3>함수 원형</h3>
+<pre>int maxHeight(BTNode *root)</pre>
+<p>그림 2의 이진 트리 <code class="inline">(1, 2, 3, 4, 5, 6, 7)</code>의 최대 높이는 2입니다.</p>
+<figure class="figure"><svg class="tree-svg" viewBox="0 0 640 245" role="img" aria-label="그림 2 이진 트리"><line x1="320" y1="45" x2="205" y2="115" class="edge"/><line x1="320" y1="45" x2="435" y2="115" class="edge"/><line x1="205" y1="115" x2="140" y2="205" class="edge"/><line x1="205" y1="115" x2="250" y2="205" class="edge"/><line x1="435" y1="115" x2="390" y2="205" class="edge"/><line x1="435" y1="115" x2="500" y2="205" class="edge"/><circle cx="320" cy="45" r="27" class="node"/><text x="320" y="51" text-anchor="middle" class="label">4</text><circle cx="205" cy="115" r="27" class="node"/><text x="205" y="121" text-anchor="middle" class="label">2</text><circle cx="435" cy="115" r="27" class="node"/><text x="435" y="121" text-anchor="middle" class="label">6</text><circle cx="140" cy="205" r="27" class="node"/><text x="140" y="211" text-anchor="middle" class="label">1</text><circle cx="250" cy="205" r="27" class="node"/><text x="250" y="211" text-anchor="middle" class="label">3</text><circle cx="390" cy="205" r="27" class="node"/><text x="390" y="211" text-anchor="middle" class="label">5</text><circle cx="500" cy="205" r="27" class="node"/><text x="500" y="211" text-anchor="middle" class="label">7</text></svg><figcaption>그림 2: 최대 높이가 2인 이진 트리</figcaption></figure>
+<div class="note">
+<strong>원문에 적힌 참고 메모 번역:</strong>
+<ul>
+<li>노드가 <code class="inline">NULL</code>이면 -1을 반환합니다.</li>
+<li>그렇지 않으면 왼쪽 서브트리와 오른쪽 서브트리의 높이를 비교하고, 더 큰 값에 1을 더해 반환합니다.</li>
+</ul>
+</div>
+<details>
+<summary>예시 입력/출력 번역 보기</summary>
+<div><pre>1: 이진 트리 생성
+2: 이진 트리의 최대 높이 찾기
+0: 종료
+
+선택을 입력하세요(1/2/0): 1
+이진 트리에 추가할 정수를 입력하세요. 알파벳 입력은 NULL로 처리됩니다.
+
+루트 값 입력: 4
+4의 왼쪽 자식 값 입력: 2
+4의 오른쪽 자식 값 입력: 6
+2의 왼쪽 자식 값 입력: 1
+2의 오른쪽 자식 값 입력: 3
+1의 왼쪽 자식 값 입력: a
+1의 오른쪽 자식 값 입력: a
+3의 왼쪽 자식 값 입력: a
+3의 오른쪽 자식 값 입력: a
+6의 왼쪽 자식 값 입력: 5
+6의 오른쪽 자식 값 입력: 7
+5의 왼쪽 자식 값 입력: a
+5의 오른쪽 자식 값 입력: a
+7의 왼쪽 자식 값 입력: a
+7의 오른쪽 자식 값 입력: a
+생성된 이진 트리: 1 2 3 4 5 6 7
+
+선택을 입력하세요(1/2/0): 2
+이진 트리의 최대 높이: 2
+
+선택을 입력하세요(1/2/0): 0</pre></div>
+</details>
+</section>
+
+<section>
+<h2>3. <code class="inline">countOneChildNodes</code> - 자식이 하나뿐인 노드 개수</h2>
+<p>
+이진 트리 루트 노드를 가리키는 포인터를 받아
+<strong>자식 노드가 정확히 하나만 있는 노드의 개수</strong>를 반환하는
+C 함수 <code class="inline">countOneChildNodes()</code>를 작성하세요.
+</p>
+<h3>함수 원형</h3>
+<pre>int countOneChildNodes(BTNode *root)</pre>
+<p>
+그림 3의 이진 트리 <code class="inline">(10, 20, 55, 30, 50, 60, 80)</code>에서는
+자식이 정확히 하나인 노드가 2개입니다. 원문에서는 해당 두 노드를 빨간색으로 표시합니다.
+</p>
+<figure class="figure"><svg class="tree-svg" viewBox="0 0 640 315" role="img" aria-label="그림 3 자식이 정확히 하나인 노드가 표시된 이진 트리"><line x1="320" y1="35" x2="205" y2="105" class="edge"/><line x1="320" y1="35" x2="435" y2="105" class="edge"/><line x1="205" y1="105" x2="145" y2="185" class="edge"/><line x1="205" y1="105" x2="265" y2="185" class="edge"/><line x1="265" y1="185" x2="265" y2="265" class="edge"/><line x1="435" y1="105" x2="495" y2="185" class="edge"/><circle cx="320" cy="35" r="27" class="node"/><text x="320" y="41" text-anchor="middle" class="label">50</text><circle cx="205" cy="105" r="27" class="node"/><text x="205" y="111" text-anchor="middle" class="label">20</text><circle cx="435" cy="105" r="27" class="node highlight"/><text x="435" y="111" text-anchor="middle" class="label highlight-text">60</text><circle cx="145" cy="185" r="27" class="node"/><text x="145" y="191" text-anchor="middle" class="label">10</text><circle cx="265" cy="185" r="27" class="node highlight"/><text x="265" y="191" text-anchor="middle" class="label highlight-text">30</text><circle cx="495" cy="185" r="27" class="node"/><text x="495" y="191" text-anchor="middle" class="label">80</text><circle cx="265" cy="265" r="27" class="node"/><text x="265" y="271" text-anchor="middle" class="label">55</text></svg><figcaption>그림 3: 자식이 정확히 하나인 30과 60을 빨간색으로 표시</figcaption></figure>
+<div class="note">
+<strong>원문에 적힌 참고 메모 번역:</strong>
+<ul>
+<li><code class="inline">NULL</code>이면 0을 반환합니다.</li>
+<li>현재 노드가 자식을 정확히 하나만 가지면, 왼쪽 결과 + 오른쪽 결과 + 1을 반환합니다.</li>
+<li>그 외에는 왼쪽 결과 + 오른쪽 결과를 반환합니다.</li>
+</ul>
+</div>
+<details>
+<summary>예시 입력/출력 번역 보기</summary>
+<div><pre>1: 이진 트리 생성
+2: 자식 노드가 정확히 하나인 노드의 개수 계산
+0: 종료
+
+선택을 입력하세요(1/2/0): 1
+이진 트리에 추가할 정수를 입력하세요. 알파벳 입력은 NULL로 처리됩니다.
+
+루트 값 입력: 50
+50의 왼쪽 자식 값 입력: 20
+50의 오른쪽 자식 값 입력: 60
+20의 왼쪽 자식 값 입력: 10
+20의 오른쪽 자식 값 입력: 30
+10의 왼쪽 자식 값 입력: a
+10의 오른쪽 자식 값 입력: a
+30의 왼쪽 자식 값 입력: 55
+30의 오른쪽 자식 값 입력: a
+55의 왼쪽 자식 값 입력: a
+55의 오른쪽 자식 값 입력: a
+60의 왼쪽 자식 값 입력: a
+60의 오른쪽 자식 값 입력: 80
+80의 왼쪽 자식 값 입력: a
+80의 오른쪽 자식 값 입력: a
+생성된 이진 트리: 10 20 55 30 50 60 80
+
+선택을 입력하세요(1/2/0): 2
+자식 노드가 정확히 하나인 노드의 수: 2
+
+선택을 입력하세요(1/2/0): 0</pre></div>
+</details>
+</section>
+
+<section>
+<h2>4. <code class="inline">sumOfOddNodes</code> - 홀수 값의 합</h2>
+<p>
+정수 이진 트리의 루트 노드를 가리키는 포인터를 받아
+트리에 있는 <strong>모든 홀수 값의 합</strong>을 반환하는 재귀 C 함수
+<code class="inline">sumOfOddNodes()</code>를 작성하세요.
+</p>
+<h3>함수 원형</h3>
+<pre>int sumOfOddNodes(BTNode *root);</pre>
+<p>
+그림 4의 이진 트리 <code class="inline">(11, 40, 35, 50, 80, 60, 85)</code>에서
+홀수 값은 11, 35, 85이며 합은 <strong>131</strong>입니다.
+</p>
+<figure class="figure"><svg class="tree-svg" viewBox="0 0 640 245" role="img" aria-label="그림 4 홀수 노드가 표시된 이진 트리"><line x1="320" y1="45" x2="205" y2="115" class="edge"/><line x1="320" y1="45" x2="435" y2="115" class="edge"/><line x1="205" y1="115" x2="140" y2="205" class="edge"/><line x1="205" y1="115" x2="250" y2="205" class="edge"/><line x1="435" y1="115" x2="390" y2="205" class="edge"/><line x1="435" y1="115" x2="500" y2="205" class="edge"/><circle cx="320" cy="45" r="27" class="node"/><text x="320" y="51" text-anchor="middle" class="label">50</text><circle cx="205" cy="115" r="27" class="node"/><text x="205" y="121" text-anchor="middle" class="label">40</text><circle cx="435" cy="115" r="27" class="node"/><text x="435" y="121" text-anchor="middle" class="label">60</text><circle cx="140" cy="205" r="27" class="node highlight"/><text x="140" y="211" text-anchor="middle" class="label highlight-text">11</text><circle cx="250" cy="205" r="27" class="node highlight"/><text x="250" y="211" text-anchor="middle" class="label highlight-text">35</text><circle cx="390" cy="205" r="27" class="node"/><text x="390" y="211" text-anchor="middle" class="label">80</text><circle cx="500" cy="205" r="27" class="node highlight"/><text x="500" y="211" text-anchor="middle" class="label highlight-text">85</text></svg><figcaption>그림 4: 홀수 값 11, 35, 85를 빨간색으로 표시</figcaption></figure>
+<div class="note">
+<strong>원문에 적힌 참고 메모 번역:</strong>
+<ul>
+<li><code class="inline">NULL</code>이면 0을 반환합니다.</li>
+<li>현재 <code class="inline">item</code>이 홀수이면 왼쪽 합 + 오른쪽 합 + 현재 item을 반환합니다.</li>
+<li>짝수이면 왼쪽 합 + 오른쪽 합을 반환합니다.</li>
+</ul>
+</div>
+<details>
+<summary>예시 입력/출력 번역 보기</summary>
+<div><pre>1: 이진 트리 생성
+2: 이진 트리의 모든 홀수 값의 합 찾기
+0: 종료
+
+선택을 입력하세요(1/2/0): 1
+이진 트리에 추가할 정수를 입력하세요. 알파벳 입력은 NULL로 처리됩니다.
+
+루트 값 입력: 50
+50의 왼쪽 자식 값 입력: 40
+50의 오른쪽 자식 값 입력: 60
+40의 왼쪽 자식 값 입력: 11
+40의 오른쪽 자식 값 입력: 35
+11의 왼쪽 자식 값 입력: a
+11의 오른쪽 자식 값 입력: a
+35의 왼쪽 자식 값 입력: a
+35의 오른쪽 자식 값 입력: a
+60의 왼쪽 자식 값 입력: 80
+60의 오른쪽 자식 값 입력: 85
+80의 왼쪽 자식 값 입력: b
+80의 오른쪽 자식 값 입력: b
+85의 왼쪽 자식 값 입력: b
+85의 오른쪽 자식 값 입력: b
+생성된 이진 트리: 11 40 35 50 80 60 85
+
+선택을 입력하세요(1/2/0): 2
+이진 트리의 모든 홀수 값의 합: 131.</pre></div>
+</details>
+</section>
+
+<section>
+<h2>5. <code class="inline">mirrorTree</code> - 이진 트리를 좌우 반전</h2>
+<p>
+기존 이진 트리를 수정하여 원래 구조의 <strong>거울상(mirror image)</strong>이 되도록 만드는
+재귀 C 함수 <code class="inline">mirrorTree()</code>를 작성하세요.
+중간용 또는 임시 트리를 새로 만들면 안 됩니다.
+함수는 반전할 이진 트리의 루트 노드 포인터 하나를 매개변수로 받습니다.
+</p>
+<h3>함수 원형</h3>
+<pre>void mirrorTree(BTNode *node);</pre>
+<p>
+그림 5의 왼쪽 트리의 중위 순회 결과는
+<code class="inline">(5, 6, 4, 3, 2, 1)</code>이고,
+좌우 반전 후 오른쪽 트리의 중위 순회 결과는
+<code class="inline">(1, 2, 3, 4, 6, 5)</code>입니다.
+</p>
+<figure class="figure"><svg class="tree-svg" viewBox="0 0 640 235" role="img" aria-label="그림 5 원본 트리와 미러 트리"><line x1="150" y1="35" x2="85" y2="105" class="edge"/><line x1="150" y1="35" x2="215" y2="105" class="edge"/><line x1="85" y1="105" x2="105" y2="185" class="edge"/><line x1="215" y1="105" x2="185" y2="185" class="edge"/><line x1="215" y1="105" x2="245" y2="185" class="edge"/><circle cx="150" cy="35" r="25" class="node"/><text x="150" y="41" text-anchor="middle" class="label">4</text><circle cx="85" cy="105" r="25" class="node"/><text x="85" y="111" text-anchor="middle" class="label">5</text><circle cx="215" cy="105" r="25" class="node"/><text x="215" y="111" text-anchor="middle" class="label">2</text><circle cx="105" cy="185" r="25" class="node"/><text x="105" y="191" text-anchor="middle" class="label">6</text><circle cx="185" cy="185" r="25" class="node"/><text x="185" y="191" text-anchor="middle" class="label">3</text><circle cx="245" cy="185" r="25" class="node"/><text x="245" y="191" text-anchor="middle" class="label">1</text><line x1="490" y1="35" x2="425" y2="105" class="edge"/><line x1="490" y1="35" x2="555" y2="105" class="edge"/><line x1="425" y1="105" x2="395" y2="185" class="edge"/><line x1="425" y1="105" x2="455" y2="185" class="edge"/><line x1="555" y1="105" x2="535" y2="185" class="edge"/><circle cx="490" cy="35" r="25" class="node"/><text x="490" y="41" text-anchor="middle" class="label">4</text><circle cx="425" cy="105" r="25" class="node"/><text x="425" y="111" text-anchor="middle" class="label">2</text><circle cx="555" cy="105" r="25" class="node"/><text x="555" y="111" text-anchor="middle" class="label">5</text><circle cx="395" cy="185" r="25" class="node"/><text x="395" y="191" text-anchor="middle" class="label">1</text><circle cx="455" cy="185" r="25" class="node"/><text x="455" y="191" text-anchor="middle" class="label">3</text><circle cx="535" cy="185" r="25" class="node"/><text x="535" y="191" text-anchor="middle" class="label">6</text><text x="320" y="120" text-anchor="middle" class="arrow">→</text><text x="150" y="225" text-anchor="middle" class="fig-sub">원본</text><text x="490" y="225" text-anchor="middle" class="fig-sub">미러</text></svg><figcaption>그림 5: 원본 트리(왼쪽)와 미러 트리(오른쪽)</figcaption></figure>
+<div class="note">
+<strong>원문에 적힌 참고 메모 번역:</strong>
+<ul>
+<li><code class="inline">node == NULL</code>이면 반환합니다.</li>
+<li><code class="inline">BTNode *temp</code>와 같은 임시 포인터를 사용하여 현재 노드의 왼쪽/오른쪽 자식 포인터를 서로 바꿉니다.</li>
+<li>그다음 <code class="inline">mirror(node-&gt;left)</code>, <code class="inline">mirror(node-&gt;right)</code>처럼 양쪽 서브트리에 대해 재귀적으로 처리합니다.</li>
+</ul>
+</div>
+<details>
+<summary>예시 입력/출력 번역 보기</summary>
+<div><pre>1: 이진 트리 생성
+2: 이진 트리를 미러 형태로 변경
+0: 종료
+
+선택을 입력하세요(1/2/0): 1
+이진 트리에 추가할 정수를 입력하세요. 알파벳 입력은 NULL로 처리됩니다.
+
+루트 값 입력: 4
+4의 왼쪽 자식 값 입력: 5
+4의 오른쪽 자식 값 입력: 2
+5의 왼쪽 자식 값 입력: a
+5의 오른쪽 자식 값 입력: 6
+6의 왼쪽 자식 값 입력: a
+6의 오른쪽 자식 값 입력: a
+2의 왼쪽 자식 값 입력: 3
+2의 오른쪽 자식 값 입력: 1
+3의 왼쪽 자식 값 입력: a
+3의 오른쪽 자식 값 입력: a
+1의 왼쪽 자식 값 입력: a
+1의 오른쪽 자식 값 입력: a
+생성된 이진 트리: 5 6 4 3 2 1
+
+선택을 입력하세요(1/2/0): 2
+미러 이진 트리: 1 2 3 4 6 5
+
+선택을 입력하세요(1/2/0): 0</pre></div>
+</details>
+<p class="small">원문 페이지의 빨간 주석에는 위 출력이 중위 순회(in-order traversal)를 사용한다고 적혀 있습니다.</p>
+</section>
+
+<section>
+<h2>6. <code class="inline">printSmallerValues</code> - 기준값보다 작은 값 출력</h2>
+<p>
+이진 트리 루트 노드 포인터와 정수 <code class="inline">m</code>을 받아,
+트리에 저장된 정수 중 <strong>m보다 작은 모든 값</strong>을 출력하는
+C 함수 <code class="inline">printSmallerValues()</code>를 작성하세요.
+</p>
+<h3>함수 원형</h3>
+<pre>void printSmallerValues(BTNode *node, int m);</pre>
+<p>
+그림 6의 이진 트리에서 <code class="inline">value = 55</code>로
+<code class="inline">printSmallerValues()</code>를 호출하면
+55보다 작은 값 <code class="inline">(50, 30, 25, 10)</code>을 출력합니다.
+원문에서는 이 네 노드를 빨간색으로 표시합니다.
+</p>
+<figure class="figure"><svg class="tree-svg" viewBox="0 0 640 245" role="img" aria-label="그림 6 55보다 작은 값이 표시된 이진 트리"><line x1="320" y1="45" x2="205" y2="115" class="edge"/><line x1="320" y1="45" x2="435" y2="115" class="edge"/><line x1="205" y1="115" x2="140" y2="205" class="edge"/><line x1="205" y1="115" x2="250" y2="205" class="edge"/><line x1="435" y1="115" x2="390" y2="205" class="edge"/><line x1="435" y1="115" x2="500" y2="205" class="edge"/><circle cx="320" cy="45" r="27" class="node highlight"/><text x="320" y="51" text-anchor="middle" class="label highlight-text">50</text><circle cx="205" cy="115" r="27" class="node highlight"/><text x="205" y="121" text-anchor="middle" class="label highlight-text">30</text><circle cx="435" cy="115" r="27" class="node"/><text x="435" y="121" text-anchor="middle" class="label">60</text><circle cx="140" cy="205" r="27" class="node highlight"/><text x="140" y="211" text-anchor="middle" class="label highlight-text">25</text><circle cx="250" cy="205" r="27" class="node"/><text x="250" y="211" text-anchor="middle" class="label">65</text><circle cx="390" cy="205" r="27" class="node highlight"/><text x="390" y="211" text-anchor="middle" class="label highlight-text">10</text><circle cx="500" cy="205" r="27" class="node"/><text x="500" y="211" text-anchor="middle" class="label">75</text></svg><figcaption>그림 6: 55보다 작은 값 50, 30, 25, 10을 빨간색으로 표시</figcaption></figure>
+<div class="note">
+<strong>원문에 적힌 참고 메모 번역:</strong>
+이 문제의 출력은 <strong>전위 순회(preorder)</strong> 순서를 사용합니다.
+</div>
+<details>
+<summary>예시 입력/출력 번역 보기</summary>
+<div><pre>1: 이진 트리 생성
+2: 더 작은 값 출력
+0: 종료
+
+선택을 입력하세요(1/2/0): 1
+이진 트리에 추가할 정수를 입력하세요. 알파벳 입력은 NULL로 처리됩니다.
+
+루트 값 입력: 50
+50의 왼쪽 자식 값 입력: 30
+50의 오른쪽 자식 값 입력: 60
+30의 왼쪽 자식 값 입력: 25
+30의 오른쪽 자식 값 입력: 65
+25의 왼쪽 자식 값 입력: a
+25의 오른쪽 자식 값 입력: a
+65의 왼쪽 자식 값 입력: a
+65의 오른쪽 자식 값 입력: a
+60의 왼쪽 자식 값 입력: 10
+60의 오른쪽 자식 값 입력: 75
+10의 왼쪽 자식 값 입력: a
+10의 오른쪽 자식 값 입력: a
+75의 왼쪽 자식 값 입력: a
+75의 오른쪽 자식 값 입력: a
+생성된 이진 트리: 25 30 65 50 10 60 75
+
+선택을 입력하세요(1/2/0): 2
+더 작은 값을 출력할 기준 정수 입력: 55
+55보다 작은 값: 50 30 25 10
+
+선택을 입력하세요(1/2/0): 0</pre></div>
+</details>
+</section>
+
+<section>
+<h2>7. <code class="inline">smallestValue</code> - 트리의 최솟값</h2>
+<p>
+주어진 이진 트리에 저장된 값 중 <strong>가장 작은 값</strong>을 반환하는
+C 함수 <code class="inline">smallestValue()</code>를 작성하세요.
+함수는 트리의 루트 노드를 가리키는 포인터를 받습니다.
+</p>
+<h3>함수 원형</h3>
+<pre>int smallestValue(BTNode *node);</pre>
+<p>
+그림 7의 이진 트리 <code class="inline">(25, 30, 65, 50, 10, 60, 75)</code>에서
+가장 작은 값은 <strong>10</strong>입니다.
+</p>
+<figure class="figure"><svg class="tree-svg" viewBox="0 0 640 245" role="img" aria-label="그림 7 최솟값이 표시된 이진 트리"><line x1="320" y1="45" x2="205" y2="115" class="edge"/><line x1="320" y1="45" x2="435" y2="115" class="edge"/><line x1="205" y1="115" x2="140" y2="205" class="edge"/><line x1="205" y1="115" x2="250" y2="205" class="edge"/><line x1="435" y1="115" x2="390" y2="205" class="edge"/><line x1="435" y1="115" x2="500" y2="205" class="edge"/><circle cx="320" cy="45" r="27" class="node"/><text x="320" y="51" text-anchor="middle" class="label">50</text><circle cx="205" cy="115" r="27" class="node"/><text x="205" y="121" text-anchor="middle" class="label">30</text><circle cx="435" cy="115" r="27" class="node"/><text x="435" y="121" text-anchor="middle" class="label">60</text><circle cx="140" cy="205" r="27" class="node"/><text x="140" y="211" text-anchor="middle" class="label">25</text><circle cx="250" cy="205" r="27" class="node"/><text x="250" y="211" text-anchor="middle" class="label">65</text><circle cx="390" cy="205" r="27" class="node highlight"/><text x="390" y="211" text-anchor="middle" class="label highlight-text">10</text><circle cx="500" cy="205" r="27" class="node"/><text x="500" y="211" text-anchor="middle" class="label">75</text></svg><figcaption>그림 7: 최솟값 10을 빨간색으로 표시</figcaption></figure>
+<details>
+<summary>예시 입력/출력 번역 보기</summary>
+<div><pre>1: 이진 트리 생성
+2: 최솟값
+0: 종료
+
+선택을 입력하세요(1/2/0): 1
+이진 트리에 추가할 정수를 입력하세요. 알파벳 입력은 NULL로 처리됩니다.
+
+루트 값 입력: 50
+50의 왼쪽 자식 값 입력: 30
+50의 오른쪽 자식 값 입력: 60
+30의 왼쪽 자식 값 입력: 25
+30의 오른쪽 자식 값 입력: 65
+25의 왼쪽 자식 값 입력: a
+25의 오른쪽 자식 값 입력: a
+65의 왼쪽 자식 값 입력: a
+65의 오른쪽 자식 값 입력: a
+60의 왼쪽 자식 값 입력: 10
+60의 오른쪽 자식 값 입력: 75
+10의 왼쪽 자식 값 입력: a
+10의 오른쪽 자식 값 입력: a
+75의 왼쪽 자식 값 입력: a
+75의 오른쪽 자식 값 입력: a
+생성된 이진 트리: 25 30 65 50 10 60 75
+
+선택을 입력하세요(1/2/0): 2
+이진 트리의 최솟값: 10
+
+선택을 입력하세요(1/2/0): 0</pre></div>
+</details>
+</section>
+
+<section>
+<h2>8. <code class="inline">hasGreatGrandchild</code> - 증손자가 있는 노드 출력</h2>
+<p>
+이진 트리에서 <strong>적어도 하나의 증손자(great-grandchild)를 가진 모든 노드의 값</strong>을
+출력하는 재귀 C 함수 <code class="inline">hasGreatGrandchild()</code>를 작성하세요.
+함수는 이진 트리의 루트 노드 포인터 하나를 매개변수로 받습니다.
+</p>
+<h3>함수 원형</h3>
+<pre>int hasGreatGrandchild(BTNode *node);</pre>
+<p>
+그림의 이진 트리 <code class="inline">(25, 30, 20, 65, 50, 10, 60, 75, 15)</code>에서
+노드 50은 증손자를 가지므로 출력 대상입니다.
+</p>
+<p class="small">
+원문 본문에는 이 예시를 "Figure 9"라고 적었지만, 실제 그림의 캡션은 "Figure 8"로 표기되어 있습니다.
+</p>
+<figure class="figure"><svg class="tree-svg" viewBox="0 0 640 300" role="img" aria-label="그림 8 증손자가 있는 노드가 표시된 이진 트리"><line x1="320" y1="30" x2="200" y2="95" class="edge"/><line x1="320" y1="30" x2="440" y2="95" class="edge"/><line x1="200" y1="95" x2="135" y2="170" class="edge"/><line x1="200" y1="95" x2="265" y2="170" class="edge"/><line x1="265" y1="170" x2="265" y2="250" class="edge"/><line x1="440" y1="95" x2="395" y2="170" class="edge"/><line x1="440" y1="95" x2="505" y2="170" class="edge"/><line x1="505" y1="170" x2="535" y2="250" class="edge"/><circle cx="320" cy="30" r="27" class="node highlight"/><text x="320" y="36" text-anchor="middle" class="label highlight-text">50</text><circle cx="200" cy="95" r="27" class="node"/><text x="200" y="101" text-anchor="middle" class="label">30</text><circle cx="440" cy="95" r="27" class="node"/><text x="440" y="101" text-anchor="middle" class="label">60</text><circle cx="135" cy="170" r="27" class="node"/><text x="135" y="176" text-anchor="middle" class="label">25</text><circle cx="265" cy="170" r="27" class="node"/><text x="265" y="176" text-anchor="middle" class="label">65</text><circle cx="395" cy="170" r="27" class="node"/><text x="395" y="176" text-anchor="middle" class="label">10</text><circle cx="505" cy="170" r="27" class="node"/><text x="505" y="176" text-anchor="middle" class="label">75</text><circle cx="265" cy="250" r="27" class="node"/><text x="265" y="256" text-anchor="middle" class="label">20</text><circle cx="535" cy="250" r="27" class="node"/><text x="535" y="256" text-anchor="middle" class="label">15</text></svg><figcaption>그림 8: 적어도 하나의 증손자를 가진 노드 50을 빨간색으로 표시</figcaption></figure>
+<div class="note">
+<strong>원문에 적힌 참고 메모 번역:</strong>
+<ul>
+<li>본질적으로 각 노드의 <strong>깊이/높이(depth)</strong>를 검사하는 방식입니다.</li>
+<li>해당 노드 기준의 깊이가 3 이상이면 그 노드의 <code class="inline">item</code>을 출력합니다.</li>
+<li>함수의 반환값으로 그 깊이 값을 이용합니다.</li>
+</ul>
+</div>
+<details>
+<summary>예시 입력/출력 번역 보기</summary>
+<div><pre>1: 이진 트리 생성
+2: 이진 트리에서 증손자를 가진 노드 찾기
+0: 종료
+
+선택을 입력하세요(1/2/0): 1
+이진 트리에 추가할 정수를 입력하세요. 알파벳 입력은 NULL로 처리됩니다.
+
+루트 값 입력: 50
+50의 왼쪽 자식 값 입력: 30
+50의 오른쪽 자식 값 입력: 60
+30의 왼쪽 자식 값 입력: 25
+30의 오른쪽 자식 값 입력: 65
+25의 왼쪽 자식 값 입력: a
+25의 오른쪽 자식 값 입력: a
+65의 왼쪽 자식 값 입력: 20
+65의 오른쪽 자식 값 입력: a
+20의 왼쪽 자식 값 입력: a
+20의 오른쪽 자식 값 입력: a
+60의 왼쪽 자식 값 입력: 10
+60의 오른쪽 자식 값 입력: 75
+10의 왼쪽 자식 값 입력: a
+10의 오른쪽 자식 값 입력: a
+75의 왼쪽 자식 값 입력: a
+75의 오른쪽 자식 값 입력: 15
+15의 왼쪽 자식 값 입력: a
+15의 오른쪽 자식 값 입력: a
+생성된 이진 트리: 25 30 20 65 50 10 60 75 15
+
+선택을 입력하세요(1/2/0): 2
+적어도 하나의 증손자를 가진 노드의 값: 50
+
+선택을 입력하세요(1/2/0): 0</pre></div>
+</details>
+</section>
+
+<footer>
+원본 PDF의 8개 문제, 예시, 그림의 의미, 페이지에 적힌 참고 주석을 바탕으로 작성한 한글 번역본입니다.
+</footer>
+</main>
+</body>
+</html>
