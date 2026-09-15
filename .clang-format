@@ -1,0 +1,13 @@
+BasedOnStyle: Microsoft
+
+IndentWidth: 4
+TabWidth: 4
+
+ColumnLimit: 0
+
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLoopsOnASingleLine: true
+
+# Keep formatting enabled; keep short if/else bodies on the same line.
+DisableFormat: false
+SortIncludes: Never
